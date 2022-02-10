@@ -11,19 +11,49 @@ public class ExampleBehaviorScript : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            myRenderer.material.color = Color.red;
-        }
+        ColorChanger();
+    }
 
-        if (Input.GetKeyDown(KeyCode.G))
+    private void ColorChanger()
+    {
+        if (Input.GetKey(KeyCode.R))
         {
-            myRenderer.material.color = Color.green;
+            if (Input.GetKey(KeyCode.G))
+            {
+                myRenderer.material.color = Color.yellow;
+            }
+            else if (Input.GetKey(KeyCode.B))
+            {
+                myRenderer.material.color = Color.magenta;
+            }
+            else
+            {
+                myRenderer.material.color = Color.red;
+            }
         }
-
-        if (Input.GetKeyDown(KeyCode.B))
+        else if (Input.GetKey(KeyCode.G))
+        {
+            if (Input.GetKey(KeyCode.B))
+            {
+                myRenderer.material.color = Color.cyan;
+            }
+            else
+            {
+                myRenderer.material.color = Color.green;
+            }
+        }
+        else if (Input.GetKey(KeyCode.B))
         {
             myRenderer.material.color = Color.blue;
+        }
+        else
+        {
+            myRenderer.material.color = Color.white;
+        }
+
+        if (Input.GetKey(KeyCode.B) && Input.GetKey(KeyCode.G) && Input.GetKey(KeyCode.R))
+        {
+            myRenderer.material.color = Color.black;
         }
     }
 }
