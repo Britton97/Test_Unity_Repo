@@ -5,20 +5,45 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float speed = 10.0f;
+    public float rotationSpeed = 10f;
+    public Quaternion currentRotation = Quaternion.Euler(0, 0, 0);
+    public Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
+    List<Quaternion> rotationValues = new List<Quaternion>() 
+    {Quaternion.Euler(0,0,0),
+    Quaternion.Euler(0,0,90),
+    Quaternion.Euler(0,0,180),
+    Quaternion.Euler(0,0,270),
+    Quaternion.Euler(0,0,0),
+    Quaternion.Euler(90,0,0)};
+    int counter = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.transform.rotation = currentRotation;
+        counter = rotationValues.Count -1;
+        print(rotationValues.Count);
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveCharacter(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+        moveCharacter();
+        //PrintUpVector();
     }
 
-    private void moveCharacter(Vector2 direction)
+    private void moveCharacter()
     {
-        transform.Translate(direction * speed * Time.deltaTime);
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            counter = (counter < rotationValues.Count - 1)? counter += 1 : counter = 0;
+            targetRotation = rotationValues[counter];
+        }
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotationValues[counter], 1 * Time.deltaTime );
+    }
+
+    private void PrintUpVector()
+    {
+        print(transform.up);
     }
 }
