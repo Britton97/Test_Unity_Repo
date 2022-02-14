@@ -39,7 +39,7 @@ public class Movement : MonoBehaviour
             counter = (counter < rotationValues.Count - 1)? counter += 1 : counter = 0;
             targetRotation = rotationValues[counter];
         }
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotationValues[counter], 1 * Time.deltaTime );
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, 4.0f * Time.deltaTime );
     }
 
     private void PrintUpVector()
